@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const optionsInput = document.getElementById("options-input");
   const pickRandomBtn = document.getElementById("pick-random-btn");
-  const resultDiv = document.getElementById("result");
   const historyList = document.getElementById("history-list");
   const clearHistoryBtn = document.getElementById("clear-history-btn");
   const confettiCanvas = document.getElementById("confetti-canvas");
   const balloonContainer = document.getElementById("balloon-container");
+
+  // Modal elements
+  const winnerModal = document.getElementById('winnerModal');
+  const winnerDisplay = document.getElementById('winner-display');
 
   const myConfetti = confetti.create(confettiCanvas, { resize: true });
   const pastelColors = [
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardHeader.setAttribute("data-bs-target", `#${uniqueId}`);
       cardHeader.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
-        <span class="fw-bold"><i class="fas fa-star me-2"></i> ${
+        <span class="fw-bold"><i class="fas fa-star me-2"></i> ${ 
           item.picked
         }</span>
         <span class="text-muted small">${new Date(
@@ -89,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const xEnd = Math.random() * 200 - 100 + "px";
       const rotateEnd = Math.random() * 40 - 20 + "deg";
 
-      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${
+      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${ 
         Math.random() * 100
       }%; animation-delay: ${delay}s; animation-duration: ${duration}s;">${option}</div>`;
     });
@@ -107,19 +110,21 @@ document.addEventListener("DOMContentLoaded", () => {
       .filter((s) => s !== "");
 
     if (options.length < 2) {
-      resultDiv.textContent = "Add at least 2 options!";
+      // Use Bootstrap's alert or a simple text update for feedback
+      alert("Please add at least 2 options!"); // Simple alert for now
       return;
     }
 
     pickRandomBtn.disabled = true;
-    resultDiv.textContent = "";
-    resultDiv.classList.remove("animated");
+    // resultDiv.textContent = ""; // No longer needed
+    // resultDiv.classList.remove("animated"); // No longer needed
     playBalloonAnimation(options);
 
     setTimeout(() => {
       const finalChoice = options[Math.floor(Math.random() * options.length)];
-      resultDiv.textContent = finalChoice;
-      resultDiv.classList.add("animated");
+      
+      winnerDisplay.textContent = finalChoice; // Update modal content
+      new bootstrap.Modal(winnerModal).show(); // Show the modal
 
       const historyEntry = {
         picked: finalChoice,

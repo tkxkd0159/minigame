@@ -58,11 +58,6 @@
                     id="pick-random-btn"
                     class="btn btn-success btn-lg mb-3"
                   ></button>
-                  <div
-                    id="result"
-                    class="display-6 p-3 rounded"
-                    style="min-height: 80px"
-                  ></div>
                 </div>
               </div>
             </div>
@@ -95,6 +90,24 @@
             <div class="collapse" id="history-collapse">
               <div id="history-list" class="card-body"></div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Winner Modal -->
+    <div class="modal fade" id="winnerModal" tabindex="-1" aria-labelledby="winnerModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="winnerModalLabel">And the winner is...</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <h1 id="winner-display" class="display-3 fw-bold"></h1>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
