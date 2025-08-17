@@ -270,6 +270,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const leftPosition = Math.random() * 80 + 10; // Keep balloons within 10-90% to avoid edges
       const startBottom = -400 - Math.random() * 200; // Vary starting bottom position slightly
 
+      const fitOption =
+        option.length > 40 ? option.substring(0, 40) + "..." : option;
       balloons += `<div class="balloon" style="
         --x-end: ${xEnd};
         --rotate-end: ${rotateEnd};
@@ -279,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
         animation-duration: ${duration}s;
         --wobble-delay: ${wobbleDelay};
         --sparkle-delay: ${sparkleDelay};
-      ">${option}</div>`;
+      ">${fitOption}</div>`;
     });
     balloonContainer.innerHTML = balloons;
 
