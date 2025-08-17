@@ -91,6 +91,73 @@ body {
 
 #options-input {
   background-color: #fef8f9;
+  font-family: "Nunito", sans-serif;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Container for enhanced input with proper line highlighting */
+.input-container {
+  position: relative;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  background-color: #fef8f9;
+  overflow: hidden;
+}
+
+.line-backgrounds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.6;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.logical-line {
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 1.6em;
+  width: 100%;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 0; /* Match textarea padding */
+  box-sizing: border-box;
+}
+
+.logical-line.even {
+  background-color: rgba(255, 182, 193, 0.12);
+}
+
+.logical-line.odd {
+  background-color: transparent;
+}
+
+#options-input.enhanced {
+  background: transparent;
+  position: relative;
+  z-index: 2;
+  resize: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.6;
+  outline: none;
 }
 
 .btn-success {

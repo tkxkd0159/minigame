@@ -24,6 +24,70 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let history = JSON.parse(localStorage.getItem("pickerHistory")) || [];
 
+  // Logical line highlighting system for textarea
+  const lineBackgrounds = document.getElementById("line-backgrounds");
+
+  const updateLogicalLineHighlighting = () => {
+    const text = optionsInput.value;
+    const logicalLines = text.split("\n");
+
+    // Clear existing backgrounds
+    lineBackgrounds.innerHTML = "";
+
+    // Create background divs for each logical line
+    logicalLines.forEach((line, index) => {
+      const lineDiv = document.createElement("div");
+      lineDiv.className = `logical-line ${index % 2 === 0 ? "even" : "odd"}`;
+      // Create invisible text that matches the line content for proper height calculation
+      const invisibleText = document.createElement("span");
+      invisibleText.style.visibility = "hidden";
+      invisibleText.style.color = "transparent";
+      invisibleText.style.fontSize = "1rem";
+      invisibleText.style.fontFamily = "'Nunito', sans-serif";
+      invisibleText.style.lineHeight = "1.6";
+      invisibleText.style.whiteSpace = "pre-wrap";
+      invisibleText.style.wordWrap = "break-word";
+      invisibleText.style.width = "100%";
+      invisibleText.style.display = "block";
+      invisibleText.textContent = line.length > 0 ? line : " ";
+      lineDiv.appendChild(invisibleText);
+      lineBackgrounds.appendChild(lineDiv);
+    });
+  };
+
+  // Improved scroll synchronization
+  const syncScroll = () => {
+    lineBackgrounds.scrollTop = optionsInput.scrollTop;
+    lineBackgrounds.scrollLeft = optionsInput.scrollLeft;
+  };
+
+  // Update line highlighting when content changes
+  optionsInput.addEventListener("input", updateLogicalLineHighlighting);
+  optionsInput.addEventListener("paste", () => {
+    // Use requestAnimationFrame for better timing
+    requestAnimationFrame(updateLogicalLineHighlighting);
+  });
+
+  // Scroll synchronization
+  optionsInput.addEventListener("scroll", syncScroll);
+
+  // Handle other events that might affect layout
+  optionsInput.addEventListener("focus", updateLogicalLineHighlighting);
+  optionsInput.addEventListener("keydown", (e) => {
+    // Update on Enter key for immediate feedback
+    if (e.key === "Enter") {
+      setTimeout(updateLogicalLineHighlighting, 0);
+    }
+  });
+
+  // Handle window resize
+  window.addEventListener("resize", () => {
+    requestAnimationFrame(updateLogicalLineHighlighting);
+  });
+
+  // Initial setup
+  updateLogicalLineHighlighting();
+
   // Background particles system
   let backgroundParticlesInterval;
   let isBackgroundPaused = false;
