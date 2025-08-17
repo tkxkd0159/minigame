@@ -5,11 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const clearHistoryBtn = document.getElementById("clear-history-btn");
   const confettiCanvas = document.getElementById("confetti-canvas");
   const balloonContainer = document.getElementById("balloon-container");
+  const bgParticlesContainer = document.getElementById("bg-particles");
 
   // Modal elements
-  const winnerModal = document.getElementById('winnerModal');
-  const winnerDisplay = document.getElementById('winner-display');
-  const warningModal = document.getElementById('warningModal'); // Get reference to warning modal
+  const winnerModal = document.getElementById("winnerModal");
+  const winnerDisplay = document.getElementById("winner-display");
+  const warningModal = document.getElementById("warningModal"); // Get reference to warning modal
 
   const myConfetti = confetti.create(confettiCanvas, { resize: true });
   const pastelColors = [
@@ -22,6 +23,78 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let history = JSON.parse(localStorage.getItem("pickerHistory")) || [];
+
+  // Background particles system
+  let backgroundParticlesInterval;
+  let isBackgroundPaused = false;
+
+  const createBackgroundParticle = () => {
+    const particle = document.createElement("div");
+    particle.className = "bg-particle";
+
+    // Random size
+    const sizes = ["small", "medium", "large"];
+    const size = sizes[Math.floor(Math.random() * sizes.length)];
+    particle.classList.add(size);
+
+    // Random color from pastel palette
+    const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+    particle.style.backgroundColor = color;
+
+    // Random horizontal position
+    particle.style.left = Math.random() * 100 + "%";
+
+    // Random animation
+    const animations = ["anim1", "anim2", "anim3"];
+    const animation = animations[Math.floor(Math.random() * animations.length)];
+    particle.classList.add(animation);
+
+    // Random delay
+    particle.style.animationDelay = Math.random() * 3 + "s";
+
+    bgParticlesContainer.appendChild(particle);
+
+    // Remove particle after animation completes
+    const animationDuration =
+      animation === "anim1" ? 8000 : animation === "anim2" ? 10000 : 12000;
+    setTimeout(() => {
+      if (particle.parentNode) {
+        particle.parentNode.removeChild(particle);
+      }
+    }, animationDuration + 3000);
+  };
+
+  const startBackgroundParticles = () => {
+    if (backgroundParticlesInterval) return;
+
+    bgParticlesContainer.classList.remove("bg-particles-paused");
+    isBackgroundPaused = false;
+
+    // Create initial particles
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => createBackgroundParticle(), i * 500);
+    }
+
+    // Continue creating particles
+    backgroundParticlesInterval = setInterval(() => {
+      if (!isBackgroundPaused) {
+        createBackgroundParticle();
+      }
+    }, 1000);
+  };
+
+  const pauseBackgroundParticles = () => {
+    isBackgroundPaused = true;
+    bgParticlesContainer.classList.add("bg-particles-paused");
+  };
+
+  const resumeBackgroundParticles = () => {
+    isBackgroundPaused = false;
+    bgParticlesContainer.classList.remove("bg-particles-paused");
+  };
+
+  // Start background particles when page loads
+  startBackgroundParticles();
 
   // Fix: Check for incompatible history data and clear it if necessary.
   if (
@@ -51,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardHeader.setAttribute("data-bs-target", `#${uniqueId}`);
       cardHeader.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
-        <span class="fw-bold"><i class="fas fa-star me-2"></i> ${ 
+        <span class="fw-bold"><i class="fas fa-star me-2"></i> ${
           item.picked
         }</span>
         <span class="text-muted small">${new Date(
@@ -93,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const xEnd = Math.random() * 200 - 100 + "px";
       const rotateEnd = Math.random() * 40 - 20 + "deg";
 
-      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${ 
+      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${
         Math.random() * 100
       }%; animation-delay: ${delay}s; animation-duration: ${duration}s;">${option}</div>`;
     });
@@ -116,6 +189,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     pickRandomBtn.disabled = true;
+
+    // Pause background particles during picking
+    pauseBackgroundParticles();
+
     playBalloonAnimation(options);
 
     setTimeout(() => {
@@ -142,6 +219,11 @@ document.addEventListener("DOMContentLoaded", () => {
         origin: { y: 0.6 },
         colors: pastelColors,
       });
+
+      // Resume background particles after picking is complete
+      setTimeout(() => {
+        resumeBackgroundParticles();
+      }, 1000);
     }, 4000);
   });
 
