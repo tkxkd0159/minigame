@@ -8,6 +8,7 @@
     --text-color: #495057;
     --border-color: #dee2e6;
     --card-bg-color: #fff;
+    --winner-bg: #FFFEC4;
 }
 
 body {
@@ -44,15 +45,8 @@ body {
     font-weight: 700;
 }
 
-.btn-primary {
-    background-color: var(--pastel-pink);
-    border-color: var(--pastel-pink);
-    color: #fff;
-    font-weight: 700;
-}
-
-.btn-primary:hover {
-    filter: brightness(1.1);
+#options-input {
+    background-color: #fcfcff;
 }
 
 .btn-success {
@@ -66,22 +60,6 @@ body {
     filter: brightness(1.1);
 }
 
-.list-group-item {
-    border-color: var(--border-color);
-}
-
-.remove-btn {
-    background-color: transparent;
-    color: #ccc;
-    border: none;
-    font-size: 20px;
-    transition: color 0.2s ease;
-}
-
-.remove-btn:hover {
-    color: var(--pastel-pink);
-}
-
 #result {
     color: var(--text-color);
     font-weight: 700;
@@ -91,8 +69,29 @@ body {
     animation: bounceIn 1s;
 }
 
-.history-card .list-group-item.picked {
-    background-color: var(--pastel-green);
+.history-entry {
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}
+
+.history-entry .list-group-item {
+    border: none;
+}
+
+.history-entry .list-group-item.picked {
+    background-color: var(--winner-bg);
+    color: var(--text-color);
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.history-entry .list-group-item.picked::before {
+    content: '\f005'; /* Font Awesome star */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--pastel-pink);
+    margin-right: 0.5rem;
 }
 
 /* Balloon Animation */
@@ -116,7 +115,6 @@ body {
     animation: floatUp 10s linear infinite;
 }
 
-/* Glossy Highlight */
 .balloon::before {
     content: '';
     position: absolute;
@@ -130,7 +128,6 @@ body {
     filter: blur(10px);
 }
 
-/* Balloon String */
 .balloon::after {
     content: '';
     position: absolute;

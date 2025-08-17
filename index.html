@@ -34,18 +34,7 @@
               <div class="row">
                 <div class="col-md-6 border-end-md">
                   <h2 class="h4">Options</h2>
-                  <div class="input-group mb-3">
-                    <input
-                      type="text"
-                      id="option-input"
-                      class="form-control"
-                      placeholder="Enter an option"
-                    />
-                    <button id="add-option-btn" class="btn btn-primary">
-                      Add
-                    </button>
-                  </div>
-                  <ul id="options-list" class="list-group"></ul>
+                  <textarea id="options-input" class="form-control" rows="10" placeholder="Paste your list here, one option per line..."></textarea>
                 </div>
                 <div
                   class="col-md-6 d-flex flex-column justify-content-center align-items-center"
@@ -66,8 +55,8 @@
             </div>
           </div>
 
-          <div class="card text-center shadow-lg mt-4 history-card">
-            <div class="card-header">
+          <div class="card shadow-lg mt-4 history-card">
+            <div class="card-header text-center">
               <div class="d-flex justify-content-between align-items-center">
                 <h2 class="h4 mb-0">History</h2>
                 <div>
@@ -91,9 +80,7 @@
               </div>
             </div>
             <div class="collapse" id="history-collapse">
-              <div class="card-body">
-                <ul id="history-list" class="list-group"></ul>
-              </div>
+              <div id="history-list" class="card-body"></div>
             </div>
           </div>
         </div>
