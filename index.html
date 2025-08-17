@@ -1,68 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cute Random Picker</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div id="balloon-container"></div>
     <canvas id="confetti-canvas"></canvas>
     <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-9">
-                <div class="card text-center shadow-lg main-card">
-                    <div class="card-header">
-                        <h1>Cute Random Picker</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6 border-end-md">
-                                <h2 class="h4">Options</h2>
-                                <div class="input-group mb-3">
-                                    <input type="text" id="option-input" class="form-control" placeholder="Enter an option">
-                                    <button id="add-option-btn" class="btn btn-primary">Add</button>
-                                </div>
-                                <ul id="options-list" class="list-group"></ul>
-                            </div>
-                            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-                                <button id="pick-random-btn" class="btn btn-success btn-lg mb-3">Pick a Winner</button>
-                                <div id="result" class="display-6 p-3 rounded" style="min-height: 80px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card text-center shadow-lg mt-4 history-card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2 class="h4 mb-0">History</h2>
-                            <div>
-                               <button class="btn btn-sm btn-outline-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
-                                    <i class="fas fa-history"></i>
-                                </button>
-                                <button id="clear-history-btn" class="btn btn-sm btn-outline-danger">Clear History</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="collapse" id="history-collapse">
-                        <div class="card-body">
-                            <ul id="history-list" class="list-group"></ul>
-                        </div>
-                    </div>
-                </div>
+      <div class="row justify-content-center">
+        <div class="col-md-9">
+          <div class="card text-center shadow-lg main-card">
+            <div class="card-header">
+              <h1>Cute Random Picker</h1>
             </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 border-end-md">
+                  <h2 class="h4">Options</h2>
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      id="option-input"
+                      class="form-control"
+                      placeholder="Enter an option"
+                    />
+                    <button id="add-option-btn" class="btn btn-primary">
+                      Add
+                    </button>
+                  </div>
+                  <ul id="options-list" class="list-group"></ul>
+                </div>
+                <div
+                  class="col-md-6 d-flex flex-column justify-content-center align-items-center"
+                >
+                  <button
+                    id="pick-random-btn"
+                    class="btn btn-success btn-lg mb-3"
+                  >
+                    Pick a Winner
+                  </button>
+                  <div
+                    id="result"
+                    class="display-6 p-3 rounded"
+                    style="min-height: 80px"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card text-center shadow-lg mt-4 history-card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h2 class="h4 mb-0">History</h2>
+                <div>
+                  <button
+                    class="btn btn-sm btn-outline-secondary me-2"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#history-collapse"
+                    aria-expanded="false"
+                    aria-controls="history-collapse"
+                  >
+                    <i class="fas fa-history"></i>
+                  </button>
+                  <button
+                    id="clear-history-btn"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    Clear History
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="collapse" id="history-collapse">
+              <div class="card-body">
+                <ul id="history-list" class="list-group"></ul>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

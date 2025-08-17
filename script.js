@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const balloonContainer = document.getElementById('balloon-container');
 
     const myConfetti = confetti.create(confettiCanvas, { resize: true });
-    const pastelColors = ['#ffc3c3', '#c3e1ff', '#c3ffd5', '#fff5c3', '#e3c3ff'];
+    const pastelColors = ['#FFADAD', '#A0C4FF', '#9BF6CF', '#FDFFB6', '#BDB2FF', '#FFD6A5'];
 
     let options = JSON.parse(localStorage.getItem('pickerOptions')) || [];
     let history = JSON.parse(localStorage.getItem('pickerHistory')) || [];
@@ -88,17 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
         let balloons = '';
         options.forEach((option, index) => {
             const color = pastelColors[index % pastelColors.length];
-            const delay = Math.random() * 5; // 0-5s delay
-            const duration = 5 + Math.random() * 5; // 5-10s duration
-            const xOffset = Math.random() * 200 - 100; // -100px to 100px
+            const delay = Math.random() * 2; // 0-2s delay
+            const duration = 4 + Math.random() * 3; // 4-7s duration
+            const xEnd = (Math.random() * 200 - 100) + 'px'; // -100px to 100px
+            const rotateEnd = (Math.random() * 40 - 20) + 'deg'; // -20deg to 20deg
 
-            balloons += `<div class="balloon" style="background-color: ${color}; left: ${Math.random() * 100}%; animation-delay: ${delay}s; animation-duration: ${duration}s; transform: translateX(${xOffset}px);">${option}</div>`;
+            balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${Math.random() * 100}%; animation-delay: ${delay}s; animation-duration: ${duration}s;">${option}</div>`;
         });
         balloonContainer.innerHTML = balloons;
 
         setTimeout(() => {
             balloonContainer.innerHTML = '';
-        }, 10000); // Clear balloons after 10s
+        }, 8000); // Clear balloons after 8s
     };
 
     addOptionBtn.addEventListener('click', () => {
