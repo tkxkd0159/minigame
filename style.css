@@ -243,7 +243,7 @@ body {
 /* Balloon Animation */
 .balloon {
   position: absolute;
-  bottom: -150px;
+  bottom: var(--start-bottom, -150px);
   width: 100px;
   height: 130px;
   background: radial-gradient(
@@ -370,7 +370,7 @@ body {
 
 @keyframes floatUp {
   0% {
-    bottom: -150px;
+    bottom: var(--start-bottom, -150px);
     transform: translateX(0) rotateZ(0) scale(0.7);
     opacity: 0;
   }

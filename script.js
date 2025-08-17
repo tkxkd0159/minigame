@@ -161,17 +161,22 @@ document.addEventListener("DOMContentLoaded", () => {
     let balloons = "";
     options.forEach((option, index) => {
       const color = pastelColors[index % pastelColors.length];
-      const duration = 5 + Math.random() * 4; // Longer duration for more playful movement
+      const duration = 5 + Math.random() * 6; // Longer duration for more playful movement
       const xEnd = Math.random() * 300 - 150 + "px"; // Increased movement range
       const rotateEnd = Math.random() * 60 - 30 + "deg"; // More rotation
       const wobbleDelay = Math.random() * 3 + "s";
       const sparkleDelay = Math.random() * 2 + "s";
 
+      // Control initial positioning
+      const leftPosition = Math.random() * 80 + 10; // Keep balloons within 10-90% to avoid edges
+      const startBottom = -400 - Math.random() * 100; // Vary starting bottom position slightly
+
       balloons += `<div class="balloon" style="
         --x-end: ${xEnd};
         --rotate-end: ${rotateEnd};
         --balloon-color: ${color};
-        left: ${Math.random() * 100}%;
+        --start-bottom: ${startBottom}px;
+        left: ${leftPosition}%;
         animation-duration: ${duration}s;
         --wobble-delay: ${wobbleDelay};
         --sparkle-delay: ${sparkleDelay};
@@ -183,14 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       const balloonElements = balloonContainer.querySelectorAll(".balloon");
       balloonElements.forEach((balloon, index) => {
-        // Add random cute movements during float
         const extraWobble = Math.random() * 2;
         balloon.style.setProperty("--extra-wobble", extraWobble + "s");
-
-        // Randomly add bounce effect
-        if (Math.random() > 0.5) {
-          balloon.style.animation += ", bounce 2s ease-in-out infinite";
-        }
+        balloon.style.animation += ", bounce 2s ease-in-out infinite";
       });
     }, 100);
 
