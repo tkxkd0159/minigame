@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Random Picker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card text-center shadow-lg">
+                    <div class="card-header">
+                        <h1 class="display-4">Fun Random Picker</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2 class="h4">Options</h2>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="option-input" class="form-control" placeholder="Enter an option">
+                                    <button id="add-option-btn" class="btn btn-primary">Add</button>
+                                </div>
+                                <ul id="options-list" class="list-group"></ul>
+                            </div>
+                            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                                <button id="pick-random-btn" class="btn btn-success btn-lg mb-3">Pick Random</button>
+                                <div id="result" class="display-6 p-3 rounded bg-light" style="min-height: 80px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card text-center shadow-lg mt-4">
+                    <div class="card-header">
+                        <h2 class="h4">History</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul id="history-list" class="list-group"></ul>
+                        <button id="clear-history-btn" class="btn btn-warning mt-3">Clear History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
