@@ -6,6 +6,7 @@
   --pastel-purple: #bdb2ff;
   --background-color: #fdfdff;
   --text-color: #495057;
+  --result-text-color: #2c3e50;
   --border-color: #dee2e6;
   --card-bg-color: #fff;
   --winner-bg: #fffec4;
@@ -129,7 +130,7 @@ body {
 }
 
 #winner-display {
-  color: var(--pastel-blue);
+  color: var(--result-text-color);
   font-weight: 700;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
