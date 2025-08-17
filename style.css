@@ -88,6 +88,21 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 15px;
     margin-bottom: 1rem;
+    overflow: hidden; /* Ensures child corners are rounded */
+}
+
+.history-header {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.history-header:hover {
+    background-color: #f8f9fa;
+}
+
+.history-header .fa-star {
+    color: var(--pastel-yellow);
+    text-shadow: 0 0 3px var(--pastel-pink);
 }
 
 .history-entry .list-group-item {
