@@ -3,44 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun Random Picker</title>
+    <title>Luxury Random Picker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    <canvas id="confetti-canvas"></canvas>
     <div class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card text-center shadow-lg">
+            <div class="col-md-9">
+                <div class="card text-center shadow-lg main-card">
                     <div class="card-header">
-                        <h1 class="display-4">Fun Random Picker</h1>
+                        <h1>Luxury Random Picker</h1>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 border-end-md">
                                 <h2 class="h4">Options</h2>
                                 <div class="input-group mb-3">
                                     <input type="text" id="option-input" class="form-control" placeholder="Enter an option">
-                                    <button id="add-option-btn" class="btn btn-primary">Add</button>
+                                    <button id="add-option-btn" class="btn btn-outline-primary">Add</button>
                                 </div>
                                 <ul id="options-list" class="list-group"></ul>
                             </div>
                             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-                                <button id="pick-random-btn" class="btn btn-success btn-lg mb-3">Pick Random</button>
-                                <div id="result" class="display-6 p-3 rounded bg-light" style="min-height: 80px;"></div>
+                                <button id="pick-random-btn" class="btn btn-primary btn-lg mb-3">Pick a Winner</button>
+                                <div id="result" class="display-6 p-3 rounded" style="min-height: 80px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card text-center shadow-lg mt-4">
+                <div class="card text-center shadow-lg mt-4 history-card">
                     <div class="card-header">
-                        <h2 class="h4">History</h2>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="h4 mb-0">History</h2>
+                            <div>
+                               <button class="btn btn-sm btn-outline-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
+                                    Toggle
+                                </button>
+                                <button id="clear-history-btn" class="btn btn-sm btn-outline-danger">Clear History</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <ul id="history-list" class="list-group"></ul>
-                        <button id="clear-history-btn" class="btn btn-warning mt-3">Clear History</button>
+                    <div class="collapse" id="history-collapse">
+                        <div class="card-body">
+                            <ul id="history-list" class="list-group"></ul>
+                        </div>
                     </div>
                 </div>
             </div>

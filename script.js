@@ -45,8 +45,39 @@ document.addEventListener('DOMContentLoaded', () => {
         historyList.innerHTML = '';
         history.forEach(item => {
             const li = document.createElement('li');
-            li.className = 'list-group-item';
-            li.textContent = item;
+            li.className = 'list-group-item flex-column align-items-start';
+
+            const pickedItem = document.createElement('div');
+            pickedItem.className = 'fw-bold';
+            pickedItem.textContent = `Picked: ${item.picked}`;
+
+            const timestamp = document.createElement('div');
+            timestamp.className = 'text-muted';
+            timestamp.textContent = new Date(item.timestamp).toLocaleString();
+
+            const allOptions = document.createElement('div');
+            allOptions.className = 'mt-2';
+            allOptions.innerHTML = '<h6>All Options:</h6>';
+            
+            const optionsUlist = document.createElement('ul');
+            optionsUlist.className = 'list-group list-group-flush';
+
+            item.options.forEach(opt => {
+                const optLi = document.createElement('li');
+                optLi.className = 'list-group-item';
+                if(opt === item.picked) {
+                    optLi.classList.add('picked');
+                }
+                optLi.textContent = opt;
+                optionsUlist.appendChild(optLi);
+            });
+
+            allOptions.appendChild(optionsUlist);
+
+            li.appendChild(pickedItem);
+            li.appendChild(timestamp);
+            li.appendChild(allOptions);
+
             historyList.appendChild(li);
         });
     };
@@ -74,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultDiv.classList.remove('animated');
-        let duration = 3000;
+        let duration = 2000;
         const interval = 100;
         let elapsed = 0;
 
@@ -91,16 +122,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultDiv.textContent = finalChoice;
                 resultDiv.classList.add('animated');
                 
-                history.unshift(finalChoice);
+                const historyEntry = {
+                    picked: finalChoice,
+                    options: [...options],
+                    timestamp: new Date().toISOString()
+                };
+
+                history.unshift(historyEntry);
                 if(history.length > 10) history.pop();
                 saveHistory();
                 renderHistory();
                 pickRandomBtn.disabled = false;
 
                 myConfetti({
-                    particleCount: 150,
-                    spread: 180,
-                    origin: { y: 0.6 }
+                    particleCount: 200,
+                    spread: 90,
+                    origin: { y: 0.6 },
+                    colors: ['#D4AF37', '#FFFFFF', '#c0c0c0']
                 });
             }
         }, interval);
