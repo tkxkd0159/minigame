@@ -157,6 +157,25 @@ body {
   filter: brightness(1.1);
 }
 
+/* Warning Modal Specific Styles */
+#warningModal .modal-header {
+  background-color: var(--pastel-yellow);
+}
+
+#warningModal .modal-title {
+  color: var(--text-color);
+}
+
+#warningModal .modal-footer .btn-secondary {
+  background-color: var(--pastel-yellow);
+  border-color: var(--pastel-yellow);
+  color: var(--text-color);
+}
+
+#warningModal .modal-footer .btn-secondary:hover {
+  filter: brightness(1.1);
+}
+
 .history-entry {
   border: 1px solid var(--border-color);
   border-radius: 15px;

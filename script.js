@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const balloonContainer = document.getElementById("balloon-container");
 
   // Modal elements
-  const winnerModal = document.getElementById("winnerModal");
-  const winnerDisplay = document.getElementById("winner-display");
+  const winnerModal = document.getElementById('winnerModal');
+  const winnerDisplay = document.getElementById('winner-display');
+  const warningModal = document.getElementById('warningModal'); // Get reference to warning modal
 
   const myConfetti = confetti.create(confettiCanvas, { resize: true });
   const pastelColors = [
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardHeader.setAttribute("data-bs-target", `#${uniqueId}`);
       cardHeader.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
-        <span class="fw-bold"><i class="fas fa-star me-2"></i> ${
+        <span class="fw-bold"><i class="fas fa-star me-2"></i> ${ 
           item.picked
         }</span>
         <span class="text-muted small">${new Date(
@@ -92,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const xEnd = Math.random() * 200 - 100 + "px";
       const rotateEnd = Math.random() * 40 - 20 + "deg";
 
-      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${
+      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${ 
         Math.random() * 100
       }%; animation-delay: ${delay}s; animation-duration: ${duration}s;">${option}</div>`;
     });
@@ -110,8 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .filter((s) => s !== "");
 
     if (options.length < 2) {
-      // Use Bootstrap's alert or a simple text update for feedback
-      alert("Please add at least 2 options!"); // Simple alert for now
+      new bootstrap.Modal(warningModal).show(); // Show warning modal
       return;
     }
 
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const finalChoice = options[Math.floor(Math.random() * options.length)];
 
       winnerDisplay.textContent = finalChoice; // Update modal content
-      new bootstrap.Modal(winnerModal).show(); // Show the modal
+      new bootstrap.Modal(winnerModal).show(); // Show the winner modal
 
       const historyEntry = {
         picked: finalChoice,
