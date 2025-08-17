@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Modal elements
   const winnerModal = document.getElementById("winnerModal");
   const winnerDisplay = document.getElementById("winner-display");
-  const warningModal = document.getElementById("warningModal"); // Get reference to warning modal
+  const warningModal = document.getElementById("warningModal");
 
   const myConfetti = confetti.create(confettiCanvas, { resize: true });
   const pastelColors = [
@@ -162,14 +162,14 @@ document.addEventListener("DOMContentLoaded", () => {
     options.forEach((option, index) => {
       const color = pastelColors[index % pastelColors.length];
       const duration = 5 + Math.random() * 6; // Longer duration for more playful movement
-      const xEnd = Math.random() * 300 - 150 + "px"; // Increased movement range
+      const xEnd = Math.random() * 500 - 200 + "px"; // Increased movement range
       const rotateEnd = Math.random() * 60 - 30 + "deg"; // More rotation
       const wobbleDelay = Math.random() * 3 + "s";
       const sparkleDelay = Math.random() * 2 + "s";
 
       // Control initial positioning
       const leftPosition = Math.random() * 80 + 10; // Keep balloons within 10-90% to avoid edges
-      const startBottom = -400 - Math.random() * 100; // Vary starting bottom position slightly
+      const startBottom = -400 - Math.random() * 200; // Vary starting bottom position slightly
 
       balloons += `<div class="balloon" style="
         --x-end: ${xEnd};
@@ -212,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     pickRandomBtn.disabled = true;
 
-    // Pause background particles during picking
     pauseBackgroundParticles();
 
     playBalloonAnimation(options);
@@ -246,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         resumeBackgroundParticles();
       }, 1000);
-    }, 4000);
+    }, 6000);
   });
 
   clearHistoryBtn.addEventListener("click", () => {
