@@ -7,8 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const historyList = document.getElementById('history-list');
     const clearHistoryBtn = document.getElementById('clear-history-btn');
     const confettiCanvas = document.getElementById('confetti-canvas');
+    const balloonContainer = document.getElementById('balloon-container');
 
     const myConfetti = confetti.create(confettiCanvas, { resize: true });
+    const pastelColors = ['#ffc3c3', '#c3e1ff', '#c3ffd5', '#fff5c3', '#e3c3ff'];
 
     let options = JSON.parse(localStorage.getItem('pickerOptions')) || [];
     let history = JSON.parse(localStorage.getItem('pickerHistory')) || [];
@@ -82,6 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const playBalloonAnimation = () => {
+        let balloons = '';
+        options.forEach((option, index) => {
+            const color = pastelColors[index % pastelColors.length];
+            const delay = Math.random() * 5; // 0-5s delay
+            const duration = 5 + Math.random() * 5; // 5-10s duration
+            const xOffset = Math.random() * 200 - 100; // -100px to 100px
+
+            balloons += `<div class="balloon" style="background-color: ${color}; left: ${Math.random() * 100}%; animation-delay: ${delay}s; animation-duration: ${duration}s; transform: translateX(${xOffset}px);">${option}</div>`;
+        });
+        balloonContainer.innerHTML = balloons;
+
+        setTimeout(() => {
+            balloonContainer.innerHTML = '';
+        }, 10000); // Clear balloons after 10s
+    };
+
     addOptionBtn.addEventListener('click', () => {
         const optionText = optionInput.value.trim();
         if (optionText) {
@@ -99,49 +118,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     pickRandomBtn.addEventListener('click', () => {
-        if (options.length === 0) {
-            resultDiv.textContent = 'Add options first!';
+        if (options.length < 2) {
+            resultDiv.textContent = 'Add at least 2 options!';
             return;
         }
 
-        resultDiv.classList.remove('animated');
-        let duration = 2000;
-        const interval = 100;
-        let elapsed = 0;
-
         pickRandomBtn.disabled = true;
+        resultDiv.textContent = '';
+        resultDiv.classList.remove('animated');
+        playBalloonAnimation();
 
-        const randomizer = setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * options.length);
-            resultDiv.textContent = options[randomIndex];
-            elapsed += interval;
+        setTimeout(() => {
+            const finalChoice = options[Math.floor(Math.random() * options.length)];
+            resultDiv.textContent = finalChoice;
+            resultDiv.classList.add('animated');
+            
+            const historyEntry = {
+                picked: finalChoice,
+                options: [...options],
+                timestamp: new Date().toISOString()
+            };
 
-            if (elapsed >= duration) {
-                clearInterval(randomizer);
-                const finalChoice = options[Math.floor(Math.random() * options.length)];
-                resultDiv.textContent = finalChoice;
-                resultDiv.classList.add('animated');
-                
-                const historyEntry = {
-                    picked: finalChoice,
-                    options: [...options],
-                    timestamp: new Date().toISOString()
-                };
+            history.unshift(historyEntry);
+            if(history.length > 10) history.pop();
+            saveHistory();
+            renderHistory();
+            pickRandomBtn.disabled = false;
 
-                history.unshift(historyEntry);
-                if(history.length > 10) history.pop();
-                saveHistory();
-                renderHistory();
-                pickRandomBtn.disabled = false;
-
-                myConfetti({
-                    particleCount: 200,
-                    spread: 90,
-                    origin: { y: 0.6 },
-                    colors: ['#D4AF37', '#FFFFFF', '#c0c0c0']
-                });
-            }
-        }, interval);
+            myConfetti({
+                particleCount: 200,
+                spread: 90,
+                origin: { y: 0.6 },
+                colors: pastelColors
+            });
+        }, 4000); // Wait for balloon animation to play a bit
     });
 
     clearHistoryBtn.addEventListener('click', () => {
