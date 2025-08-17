@@ -96,6 +96,41 @@ document.addEventListener("DOMContentLoaded", () => {
   // Start background particles when page loads
   startBackgroundParticles();
 
+  // Function to adjust modal size based on text length
+  const adjustModalSize = (text) => {
+    const textLength = text.length;
+    const modalDialog = winnerModal.querySelector(".modal-dialog");
+
+    // Remove existing size classes
+    modalDialog.classList.remove(
+      "modal-sm-text",
+      "modal-md-text",
+      "modal-lg-text",
+      "modal-xl-text"
+    );
+    winnerDisplay.classList.remove(
+      "text-short",
+      "text-medium",
+      "text-long",
+      "text-extra-long"
+    );
+
+    // Add appropriate classes based on text length
+    if (textLength <= 15) {
+      modalDialog.classList.add("modal-sm-text");
+      winnerDisplay.classList.add("text-short");
+    } else if (textLength <= 30) {
+      modalDialog.classList.add("modal-md-text");
+      winnerDisplay.classList.add("text-medium");
+    } else if (textLength <= 50) {
+      modalDialog.classList.add("modal-lg-text");
+      winnerDisplay.classList.add("text-long");
+    } else {
+      modalDialog.classList.add("modal-xl-text");
+      winnerDisplay.classList.add("text-extra-long");
+    }
+  };
+
   // Fix: Check for incompatible history data and clear it if necessary.
   if (
     history.length > 0 &&
@@ -220,6 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const finalChoice = options[Math.floor(Math.random() * options.length)];
 
       winnerDisplay.textContent = finalChoice; // Update modal content
+      adjustModalSize(finalChoice); // Adjust modal size based on text length
       new bootstrap.Modal(winnerModal).show(); // Show the winner modal
 
       const historyEntry = {
