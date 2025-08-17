@@ -12,13 +12,35 @@
   --winner-bg: #fffec4;
 }
 
+html {
+  background: linear-gradient(to top, #f3e7e9 0%, #f8e8ea 100%);
+  min-height: 100%;
+}
+
 body {
   font-family: "Nunito", sans-serif;
-  background-color: var(--background-color);
+  background-color: transparent;
   color: var(--text-color);
-  background-image: linear-gradient(to top, #f3e7e9 0%, white 100%);
+  background: linear-gradient(to top, #f3e7e9 0%, #f8e8ea 100%) fixed;
   position: relative;
   overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure all containers maintain the pink background */
+.container {
+  background: transparent;
+}
+
+/* Override Bootstrap defaults that might interfere */
+.row {
+  background: transparent;
+}
+
+.col-md-9 {
+  background: transparent;
 }
 
 #confetti-canvas,
@@ -68,7 +90,7 @@ body {
 }
 
 #options-input {
-  background-color: #fcfcff;
+  background-color: #fef8f9;
 }
 
 .btn-success {
