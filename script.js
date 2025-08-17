@@ -161,20 +161,42 @@ document.addEventListener("DOMContentLoaded", () => {
     let balloons = "";
     options.forEach((option, index) => {
       const color = pastelColors[index % pastelColors.length];
-      const delay = Math.random() * 2;
-      const duration = 4 + Math.random() * 3;
-      const xEnd = Math.random() * 200 - 100 + "px";
-      const rotateEnd = Math.random() * 40 - 20 + "deg";
+      const duration = 5 + Math.random() * 4; // Longer duration for more playful movement
+      const xEnd = Math.random() * 300 - 150 + "px"; // Increased movement range
+      const rotateEnd = Math.random() * 60 - 30 + "deg"; // More rotation
+      const wobbleDelay = Math.random() * 3 + "s";
+      const sparkleDelay = Math.random() * 2 + "s";
 
-      balloons += `<div class="balloon" style="--x-end: ${xEnd}; --rotate-end: ${rotateEnd}; background-color: ${color}; left: ${
-        Math.random() * 100
-      }%; animation-delay: ${delay}s; animation-duration: ${duration}s;">${option}</div>`;
+      balloons += `<div class="balloon" style="
+        --x-end: ${xEnd};
+        --rotate-end: ${rotateEnd};
+        --balloon-color: ${color};
+        left: ${Math.random() * 100}%;
+        animation-duration: ${duration}s;
+        --wobble-delay: ${wobbleDelay};
+        --sparkle-delay: ${sparkleDelay};
+      ">${option}</div>`;
     });
     balloonContainer.innerHTML = balloons;
 
+    // Add extra cute floating elements after balloons are created
+    setTimeout(() => {
+      const balloonElements = balloonContainer.querySelectorAll(".balloon");
+      balloonElements.forEach((balloon, index) => {
+        // Add random cute movements during float
+        const extraWobble = Math.random() * 2;
+        balloon.style.setProperty("--extra-wobble", extraWobble + "s");
+
+        // Randomly add bounce effect
+        if (Math.random() > 0.5) {
+          balloon.style.animation += ", bounce 2s ease-in-out infinite";
+        }
+      });
+    }, 100);
+
     setTimeout(() => {
       balloonContainer.innerHTML = "";
-    }, 8000);
+    }, 8000); // Extended time to enjoy the cute movements
   };
 
   pickRandomBtn.addEventListener("click", () => {

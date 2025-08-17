@@ -244,55 +244,260 @@ body {
 .balloon {
   position: absolute;
   bottom: -150px;
-  width: 120px;
-  height: 145px;
-  background-color: var(--pastel-blue);
+  width: 100px;
+  height: 130px;
+  background: radial-gradient(
+      circle at 25% 25%,
+      rgba(255, 255, 255, 0.9),
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      var(--balloon-color, #a0c4ff) 0%,
+      var(--balloon-color, #7ba3ff) 100%
+    );
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
   text-align: center;
-  padding: 10px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: inset -10px -10px 0 rgba(0, 0, 0, 0.07);
-  animation: floatUp 10s linear infinite;
+  padding: 12px 8px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+    inset -5px -5px 15px rgba(0, 0, 0, 0.15),
+    inset 5px 5px 15px rgba(255, 255, 255, 0.4);
+  animation: floatUp 10s linear infinite, wobble 3s ease-in-out infinite;
+  position: relative;
+  overflow: visible;
+  transform-origin: bottom center;
 }
 
+/* Cute sparkly highlight */
 .balloon::before {
-  content: "";
+  content: "✨";
   position: absolute;
-  top: 10px;
+  top: 8px;
   left: 15px;
-  width: 40px;
-  height: 50px;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  transform: rotate(45deg);
-  filter: blur(10px);
+  font-size: 12px;
+  opacity: 0.8;
+  animation: sparkle 2s ease-in-out infinite;
+  z-index: 3;
 }
 
+/* Balloon string with cute bow */
 .balloon::after {
   content: "";
   position: absolute;
-  bottom: -15px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 20px;
-  background: linear-gradient(to bottom, #aaa, #666);
+  height: 35px;
+  background: linear-gradient(to bottom, #888 0%, #555 50%, #333 100%);
+  border-radius: 1px;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Add cute bow at balloon base */
+.balloon {
+  position: relative;
+}
+
+.balloon:before {
+  z-index: 3;
+}
+
+/* Cute balloon tie with heart shape */
+.balloon:nth-child(n) {
+  position: relative;
+}
+
+.balloon:nth-child(n):after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 8px;
+  background: radial-gradient(circle, #ff6b9d, #ff8fab);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* Add cute heart-shaped tie */
+.balloon:nth-child(n):after {
+  background: radial-gradient(circle at 30% 40%, #ff6b9d 0%, transparent 50%),
+    radial-gradient(circle at 70% 40%, #ff6b9d 0%, transparent 50%),
+    linear-gradient(135deg, #ff8fab 0%, #ff6b9d 100%);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  width: 8px;
+  height: 8px;
+}
+
+/* Add floating hearts around balloons */
+.balloon:nth-child(odd):before {
+  content: "💕";
+  animation: sparkle 2.5s ease-in-out infinite,
+    floatHeart 4s ease-in-out infinite;
+}
+
+.balloon:nth-child(even):before {
+  content: "✨";
+  animation: sparkle 2s ease-in-out infinite,
+    floatStar 3.5s ease-in-out infinite;
+}
+
+.balloon:nth-child(3n):before {
+  content: "🌟";
+  animation: sparkle 1.8s ease-in-out infinite, twinkle 3s ease-in-out infinite;
 }
 
 @keyframes floatUp {
   0% {
     bottom: -150px;
-    transform: translateX(0) rotateZ(0);
+    transform: translateX(0) rotateZ(0) scale(0.7);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(0) rotateZ(0) scale(1);
+  }
+  15% {
+    transform: translateX(calc(var(--x-end) * 0.1))
+      rotateZ(calc(var(--rotate-end) * 0.2)) scale(1.05);
+  }
+  25% {
+    transform: translateX(calc(var(--x-end) * 0.2))
+      rotateZ(calc(var(--rotate-end) * 0.3)) scale(0.95);
+  }
+  35% {
+    transform: translateX(calc(var(--x-end) * 0.3))
+      rotateZ(calc(var(--rotate-end) * 0.4)) scale(1.02);
+  }
+  50% {
+    transform: translateX(calc(var(--x-end) * 0.5))
+      rotateZ(calc(var(--rotate-end) * 0.6)) scale(0.98);
+  }
+  65% {
+    transform: translateX(calc(var(--x-end) * 0.7))
+      rotateZ(calc(var(--rotate-end) * 0.8)) scale(1.01);
+  }
+  80% {
+    transform: translateX(calc(var(--x-end) * 0.9))
+      rotateZ(calc(var(--rotate-end) * 0.95)) scale(0.99);
+  }
+  95% {
+    opacity: 1;
+    transform: translateX(var(--x-end)) rotateZ(var(--rotate-end)) scale(0.85);
   }
   100% {
     bottom: 110vh;
-    transform: translateX(var(--x-end)) rotateZ(var(--rotate-end));
+    transform: translateX(var(--x-end)) rotateZ(var(--rotate-end)) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Cute wobble animation */
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(2deg) scale(1.02);
+  }
+  50% {
+    transform: rotate(0deg) scale(0.98);
+  }
+  75% {
+    transform: rotate(-2deg) scale(1.01);
+  }
+}
+
+/* Sparkle animation */
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* Floating heart animation */
+@keyframes floatHeart {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+  75% {
+    transform: translateY(3px) rotate(-5deg);
+  }
+}
+
+/* Floating star animation */
+@keyframes floatStar {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  33% {
+    transform: translateY(-2px) scale(1.1);
+  }
+  66% {
+    transform: translateY(2px) scale(0.9);
+  }
+}
+
+/* Twinkling animation */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Cute bounce animation */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.02);
+  }
+  50% {
+    transform: translateY(0) scale(0.98);
+  }
+  75% {
+    transform: translateY(-4px) scale(1.01);
   }
 }
 
